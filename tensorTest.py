@@ -1,21 +1,15 @@
 # import tensorflow as tf
 
-# index - date - close - volume - open - high - low
+# index, Date, Close/Last, Volume, Open, High, Low
 
 import pandas as pd
+import numpy as np
 
 datafile = pd.read_csv(r"./AppleStockData.csv")
 datafile = datafile.drop(columns="Open")
 
-def getPastThreeMonths(data):
-    endIndex = 0
-    startDate = data.iloc(0)[0]["Date"]
-    startMonth = int(startDate[0:2])
-    for row in data.iterrows():
-        curMonth = int(row[1]["Date"][0:2])
-        if curMonth < startMonth - 2:
-            break
-        print(curMonth)
-        endIndex += 1
-    return endIndex
-print("end", getPastThreeMonths(datafile))
+def getTrainAndLabel(data, target):
+    train = data.loc[target+1:target+30, ["Date", "Close/Last", "Volume",  "High", "Low"]].to_numpy() #flip and convert to float for number vals
+    label = float(data.iloc[0]["Close/Last"].strip("$"))
+    return [train, label]
+print(getTrainAndLabel(datafile, 0))

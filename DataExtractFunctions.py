@@ -19,12 +19,12 @@ def addArrayToTrainData(array):
     try:
         loadFile = open("trainData.npy", "rb")
         tmp = np.load(loadFile)
-        tmp = np.append(tmp, array, axis=0)
+        tmp = np.append(tmp, np.array([array]), axis=0)
         np.save("trainData", tmp)
         loadFile.close()
     except Exception as e:
         print("EXCEPTION SAVING PRINT", e)
-        np.save("trainData", np.array(array))
+        np.save("trainData", np.array([array]))
 def addArrayToLabelData(array):
     try:
         loadFile = open("labelData.npy", "rb")

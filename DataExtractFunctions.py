@@ -6,13 +6,13 @@ def configureData(data):
     data["High"] = data["High"].apply(lambda x: float(x.strip("$")))
     data["Low"] = data["Low"].apply(lambda x: float(x.strip("$")))
 def getTrain(data, target):
-    train = np.flipud(data.loc[target+1:target+3, ["Close/Last", "Volume",  "High", "Low"]].to_numpy())#flip and convert to float for number vals
+    train = np.flipud(data.loc[target+1:target+30, ["Close/Last", "Volume",  "High", "Low"]].to_numpy())#flip and convert to float for number vals
     return np.array(train)
 def getLabel(data, target):
     label = data.iloc[0]["Close/Last"]
     return np.array(label)
 def openCsv(filename):
-    datafile = pd.read_csv(r"./" + filename + ".csv")
+    datafile = pd.read_csv(r"./StockData/" + filename + ".csv")
     configureData(datafile)
     return datafile
 def addArrayToTrainData(array):

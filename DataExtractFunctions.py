@@ -9,7 +9,7 @@ def getTrain(data, target):
     train = np.flipud(data.loc[target+1:target+30, ["Close/Last", "Volume",  "High", "Low"]].to_numpy())#flip and convert to float for number vals
     return np.array(train)
 def getLabel(data, target):
-    label = data.iloc[0]["Close/Last"]
+    label = data.iloc[target]["Close/Last"]
     return np.array(label)
 def openCsv(filename):
     datafile = pd.read_csv(r"./StockData/" + filename + ".csv")

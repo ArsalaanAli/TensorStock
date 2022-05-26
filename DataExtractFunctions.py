@@ -3,10 +3,8 @@ import numpy as np
 
 def configureData(data):
     data["Close/Last"] = data["Close/Last"].apply(lambda x: float(x.strip("$")))
-    data["High"] = data["High"].apply(lambda x: float(x.strip("$")))
-    data["Low"] = data["Low"].apply(lambda x: float(x.strip("$")))
 def getTrain(data, target):
-    train = np.flipud(data.loc[target+1:target+30, ["Close/Last", "Volume",  "High", "Low"]].to_numpy())#flip and convert to float for number vals
+    train = np.flipud(data["Close/Last"][target+1:target+30])#flip and convert to float for number vals
     return np.array(train)
 def getLabel(data, target):
     label = data.iloc[target]["Close/Last"]
@@ -36,15 +34,17 @@ def addArrayToLabelData(array):
         print("EXCEPTION SAVING LABEL", e)
         np.save("labelData", np.array([array]))
 
-'''
-csv = openCsv("AppleStockData")
-train = getTrain(csv, 5)
-label = getLabel(csv, 0)
-addArrayToTrainData(train)
-addArrayToLabelData(label)
-loadFile = open("trainData.npy", "rb")
-tmp = np.load(loadFile)
-loadFile1 = open("labelData.npy", "rb")
-tmp1 = np.load(loadFile1)
-print(tmp, tmp1)
-'''
+
+csv = openCsv("STOCKDATA (1)")
+# print(csv["Close/Last"][0:10])
+train = getTrain(csv, 0)
+print(train)
+
+# label = getLabel(csv, 0)
+# addArrayToTrainData(train)
+# addArrayToLabelData(label)
+# loadFile = open("trainData.npy", "rb")
+# tmp = np.load(loadFile)
+# loadFile1 = open("labelData.npy", "rb")
+# tmp1 = np.load(loadFile1)
+# print(tmp, tmp1)

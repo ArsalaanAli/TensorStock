@@ -14,12 +14,12 @@ def build_model():
   return model
 
 loadFile = open("trainData.npy", "rb")
-train = np.load(loadFile)[0]
+train = np.load(loadFile)
 loadFile1 = open("labelData.npy", "rb")
-label = np.load(loadFile1)[0]
+label = np.load(loadFile1)
 
-train = np.array([train])
-label = np.array([label])
+train = np.array(train)
+label = np.array(label)
 
 
 print(train, label)
